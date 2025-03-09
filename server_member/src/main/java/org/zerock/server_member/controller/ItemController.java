@@ -24,10 +24,11 @@ public class ItemController {
         return itemService.insert(item);
     }
     //삭제
-    @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable Long id) {
+    @DeleteMapping("/delete")
+    public void delete(@RequestBody Long id) {
         itemService.delete(id);
     }
+
     //수정
     @PutMapping("/update/{id}")
     public Item update(@PathVariable Long id, @RequestBody Item item) {

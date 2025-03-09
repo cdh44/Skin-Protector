@@ -21,16 +21,24 @@ public class MemberService {
     return  memberRepository.save(member);
   }
   //삭제
+  @Transactional
   public void delete(Long id){
+    if (!memberRepository.existsById(id)) {
+      throw new IllegalArgumentException("해당 ID의 멤버가 존재하지 않습니다: " + id);
+    }
     memberRepository.deleteById(id);
   }
+
   //수정
   @Transactional
   public Member update(Long id, Member member){
-    Member m = memberRepository.findById(id).get();
+    Member m = memberRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("해당 ID의 멤버가 존재하지 않습니다: " + id));
+
     m.setName(member.getName());   //member <- 수정 정보 객체
     m.setEmail(member.getEmail());
     m.setPhone(member.getPhone());
     return m;
   }
+
 }
