@@ -7,6 +7,7 @@ import org.zerock.server_member.model.Member;
 import org.zerock.server_member.repository.MemberRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +40,11 @@ public class MemberService {
     m.setEmail(member.getEmail());
     m.setPhone(member.getPhone());
     return m;
+  }
+
+  // 이메일로 회원 찾기
+  public Optional<Member> findByEmail(String email) {
+    return memberRepository.findByEmail(email);
   }
 
 }
