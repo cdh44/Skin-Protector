@@ -8,8 +8,6 @@ const PostCreatePage = () => {
     const navigate = useNavigate();
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
-    const userId = localStorage.getItem("userId");
-    const nickname = localStorage.getItem("name");
 
     const handleCreatePost = async () => {
         if (!title || !content) {
@@ -19,6 +17,12 @@ const PostCreatePage = () => {
     
         const userId = localStorage.getItem("userId");
         const nickname = localStorage.getItem("name");
+
+        if (!userId || !nickname) {
+            alert("로그인 후 게시글을 작성할 수 있습니다.");
+            navigate("/login");
+            return;
+        }
     
         console.log("게시글 작성 요청:", { title, content, authorId: userId, author: nickname });
     
@@ -29,7 +33,6 @@ const PostCreatePage = () => {
             console.error("게시글 작성 실패:", error);
         }
     };
-    
 
     return (
         <Container>
