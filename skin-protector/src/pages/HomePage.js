@@ -1,12 +1,14 @@
 import React from "react";
 import { Button, Container, Typography, Box } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../services/authService";
 
 const HomePage = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); // JWT 토큰 삭제
+    logout(); // 모든 localStorage 데이터 삭제
     navigate("/");
   };
 
@@ -19,64 +21,73 @@ const HomePage = () => {
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
+        position: "relative",
       }}
     >
-      <Box sx={{ position: "absolute", top: 16, right: 16 }}>
-        <img src="/images/cosmetic.png" alt="Cosmetic" width={50} height={50} />
-      </Box>
+      {/* 오른쪽 상단 로고 */}
+      <Box
+        component="img"
+        src="/images/cosmetic.png"
+        alt="cosmetic"
+        sx={{
+          width: 50,
+          height: 50,
+          position: "absolute",
+          top: 16,
+          right: 16,
+        }}
+      />
 
-      <Typography variant="h4" gutterBottom>
+      {/* 중앙 텍스트 */}
+      <Typography variant="h4" sx={{ mb: 4 }}>
         홈
       </Typography>
 
-      {/* 커뮤니티 버튼 */}
+      {/* 버튼 리스트 */}
       <Button
-        variant="contained"
         fullWidth
-        sx={{
-          mt: 3,
-          bgcolor: "#8BC34A",
-          color: "white",
-          "&:hover": { bgcolor: "#7CB342" },
-        }}
+        variant="contained"
+        sx={{ mb: 2, bgcolor: "#A4D37E" }}
         onClick={() => navigate("/community")}
       >
         커뮤니티
       </Button>
 
-      {/* 마이페이지 버튼 */}
       <Button
-        variant="contained"
         fullWidth
-        sx={{
-          mt: 2,
-          bgcolor: "#70A43C",
-          color: "white",
-          "&:hover": { bgcolor: "#5F8A2D" },
-        }}
+        variant="contained"
+        sx={{ mb: 2, bgcolor: "#649A3A" }}
         onClick={() => navigate("/mypage")}
       >
         마이 페이지
       </Button>
 
-      {/* 로그아웃 버튼 */}
       <Button
-        variant="contained"
         fullWidth
-        sx={{
-          mt: 2,
-          bgcolor: "#f44336",
-          color: "white",
-          "&:hover": { bgcolor: "#d32f2f" },
+        variant="contained"
+        color="error"
+        startIcon={<LogoutIcon />}
+        onClick={() => {
+          localStorage.clear();
+          navigate("/login");
         }}
-        onClick={handleLogout}
       >
         로그아웃
       </Button>
 
-      <Box sx={{ position: "absolute", bottom: 80, right: 16 }}>
-        <img src="/images/alert.png" alt="Alert" width={50} height={50} />
-      </Box>
+      {/* 오른쪽 하단 알림 아이콘 */}
+      <Box
+        component="img"
+        src="/images/alert.png"
+        alt="alert"
+        sx={{
+          width: 50,
+          height: 50,
+          position: "absolute",
+          bottom: 16,
+          right: 16,
+        }}
+      />
     </Container>
   );
 };

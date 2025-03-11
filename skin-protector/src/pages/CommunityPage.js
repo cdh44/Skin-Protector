@@ -23,9 +23,19 @@ const CommunityPage = () => {
     };
 
     return (
-        <Container>
+        <Container
+            maxWidth="xs"
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                height: "100vh",
+                position: "relative",
+                pt: 10, // 상단 네비게이션 바와 간격 조정
+            }}
+        >
             {/* 상단 네비게이션 바 */}
-            <AppBar position="static" sx={{ bgcolor: "white", color: "black", boxShadow: "none" }}>
+            <AppBar position="absolute" sx={{ bgcolor: "white", color: "black", boxShadow: "none", top: 0, width: "100%" }}>
                 <Toolbar>
                     <IconButton edge="start" onClick={() => navigate("/home")} sx={{ color: "black" }}>
                         <ArrowBackIcon />
@@ -38,7 +48,7 @@ const CommunityPage = () => {
             </AppBar>
 
             {/* 게시글 목록 */}
-            <List sx={{ mt: 2 }}>
+            <List sx={{ width: "100%", mt: 2 }}> {/* 위쪽 정렬을 위해 margin-top 추가 */}
                 {posts.map((post) => (
                     <ListItem key={post.id} button onClick={() => navigate(`/post/${post.id}`)} sx={{ bgcolor: "#8BC34A", mb: 2, borderRadius: 2 }}>
                         <ListItemText primary={post.title} secondary={`작성자: ${post.author}`} />
@@ -48,7 +58,7 @@ const CommunityPage = () => {
 
             {/* 게시글 작성 버튼 */}
             <IconButton
-                sx={{ position: "fixed", bottom: 20, right: 20, bgcolor: "#8BC34A", color: "white", borderRadius: "50%", p: 2 }}
+                sx={{ position: "absolute", bottom: 20, right: 20, bgcolor: "#8BC34A", color: "white", borderRadius: "50%", p: 2 }}
                 onClick={() => navigate("/post/create")}
             >
                 <AddIcon />

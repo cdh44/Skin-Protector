@@ -1,5 +1,6 @@
 package org.zerock.server_member.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.zerock.server_member.model.Member;
 import org.zerock.server_member.model.Post;
@@ -9,14 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+
 public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-
-    public PostService(PostRepository postRepository, MemberRepository memberRepository) {
-        this.postRepository = postRepository;
-        this.memberRepository = memberRepository;
-    }
 
     // 전체 게시글 목록 조회
     public List<Post> getAllPosts() {

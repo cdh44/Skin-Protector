@@ -1,5 +1,6 @@
 package org.zerock.server_member.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.zerock.server_member.model.Comment;
 import org.zerock.server_member.model.Member;
@@ -10,14 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
+
 public class CommentService {
     private final CommentRepository commentRepository;
     private final MemberRepository memberRepository;
-
-    public CommentService(CommentRepository commentRepository, MemberRepository memberRepository) {
-        this.commentRepository = commentRepository;
-        this.memberRepository = memberRepository;
-    }
 
     public List<Comment> getCommentsByPost(Long postId) {
         return commentRepository.findByPostId(postId);
