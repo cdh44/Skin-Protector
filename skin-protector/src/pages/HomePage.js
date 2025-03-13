@@ -68,8 +68,7 @@ const HomePage = () => {
         color="error"
         startIcon={<LogoutIcon />}
         onClick={() => {
-          localStorage.clear();
-          navigate("/login");
+            handleLogout();
         }}
       >
         로그아웃
