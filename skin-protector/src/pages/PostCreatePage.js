@@ -1,60 +1,30 @@
-import React, { useState } from "react";
-import { Container, TextField, Button, Typography, AppBar, Toolbar, IconButton } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { createPost } from "../services/postService";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import PostForm from "../components/PostForm";
+import "../styles/PostCreatePage.css";
+import { Box, IconButton, Typography } from "@mui/material";
 
 const PostCreatePage = () => {
     const navigate = useNavigate();
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
-
-    const handleCreatePost = async () => {
-        if (!title || !content) {
-            console.error("제목 또는 내용이 비어 있습니다.");
-            return;
-        }
-    
-        const userId = localStorage.getItem("userId");
-        const nickname = localStorage.getItem("name");
-
-        if (!userId || !nickname) {
-            alert("로그인 후 게시글을 작성할 수 있습니다.");
-            navigate("/login");
-            return;
-        }
-    
-        console.log("게시글 작성 요청:", { title, content, authorId: userId, author: nickname });
-    
-        try {
-            await createPost({ title, content, authorId: userId, author: nickname });
-            navigate("/community");
-        } catch (error) {
-            console.error("게시글 작성 실패:", error);
-        }
-    };
 
     return (
-        <Container>
+        <div className="post-create-container">
             {/* 상단 네비게이션 바 */}
-            <AppBar position="static" sx={{ bgcolor: "white", color: "black", boxShadow: "none" }}>
-                <Toolbar>
-                    <IconButton edge="start" onClick={() => navigate("/community")} sx={{ color: "black" }}>
+            <div className="header">
+                {/* <button className="back-button" onClick={() => navigate("/community")}>
+                    <ArrowBackIcon />
+                </button> */}
+                <Box className="back-button">
+                    <IconButton onClick={() => navigate("/community")}>
                         <ArrowBackIcon />
                     </IconButton>
-                    <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
-                        게시글 작성
-                    </Typography>
-                </Toolbar>
-            </AppBar>
-
-            <Typography variant="h4" sx={{ mt: 2 }}>게시글 작성</Typography>
-            <TextField label="제목" fullWidth margin="normal" value={title} onChange={(e) => setTitle(e.target.value)} />
-            <TextField label="내용" fullWidth multiline rows={4} margin="normal" value={content} onChange={(e) => setContent(e.target.value)} />
-            <Button variant="contained" sx={{ mt: 2, bgcolor: "#8BC34A" }} onClick={handleCreatePost}>
-                게시글 등록
-            </Button>
-        </Container>
+                    <Typography variant="h6">뒤로</Typography>
+                </Box>
+                <h1 className="header-title">게시글 작성</h1>
+            </div>
+            <PostForm />
+        </div>
     );
 };
 
