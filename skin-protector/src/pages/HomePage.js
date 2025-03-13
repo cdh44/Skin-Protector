@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Container, Typography, Box } from "@mui/material";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { logout } from "../services/authService";
+import "../styles/HomePage.css";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -13,81 +13,29 @@ const HomePage = () => {
   };
 
   return (
-    <Container
-      maxWidth="xs"
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        position: "relative",
-      }}
-    >
+    <div className="home-container">
       {/* 오른쪽 상단 로고 */}
-      <Box
-        component="img"
-        src="/images/cosmetic.png"
-        alt="cosmetic"
-        sx={{
-          width: 50,
-          height: 50,
-          position: "absolute",
-          top: 16,
-          right: 16,
-        }}
-      />
+      <img src="/images/cosmetic.png" alt="cosmetic" className="home-logo" />
 
       {/* 중앙 텍스트 */}
-      <Typography variant="h4" sx={{ mb: 4 }}>
-        홈
-      </Typography>
+      <h2 className="home-title">홈</h2>
 
       {/* 버튼 리스트 */}
-      <Button
-        fullWidth
-        variant="contained"
-        sx={{ mb: 2, bgcolor: "#A4D37E" }}
-        onClick={() => navigate("/community")}
-      >
+      <button className="home-button community-btn" onClick={() => navigate("/community")}>
         커뮤니티
-      </Button>
+      </button>
 
-      <Button
-        fullWidth
-        variant="contained"
-        sx={{ mb: 2, bgcolor: "#649A3A" }}
-        onClick={() => navigate("/mypage")}
-      >
+      <button className="home-button mypage-btn" onClick={() => navigate("/mypage")}>
         마이 페이지
-      </Button>
+      </button>
 
-      <Button
-        fullWidth
-        variant="contained"
-        color="error"
-        startIcon={<LogoutIcon />}
-        onClick={() => {
-            handleLogout();
-        }}
-      >
-        로그아웃
-      </Button>
+      <button className="home-button logout-btn" onClick={handleLogout}>
+        <LogoutIcon className="logout-icon" /> 로그아웃
+      </button>
 
       {/* 오른쪽 하단 알림 아이콘 */}
-      <Box
-        component="img"
-        src="/images/alert.png"
-        alt="alert"
-        sx={{
-          width: 50,
-          height: 50,
-          position: "absolute",
-          bottom: 16,
-          right: 16,
-        }}
-      />
-    </Container>
+      <img src="/images/alert.png" alt="alert" className="home-alert" />
+    </div>
   );
 };
 

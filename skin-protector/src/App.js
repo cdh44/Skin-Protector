@@ -7,6 +7,7 @@ import MyPage from "./pages/MyPage";
 import CommunityPage from "./pages/CommunityPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import PostCreatePage from "./pages/PostCreatePage";
+import './App.css';
 
 function App() {
   return (

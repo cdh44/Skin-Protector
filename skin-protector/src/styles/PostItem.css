@@ -1,0 +1,15 @@
+.post-item {
+    width: 90%;
+    padding: 16px;
+    background-color: #8BC34A;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    text-align: left;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.post-item:hover {
+    background-color: #70A43C;
+}

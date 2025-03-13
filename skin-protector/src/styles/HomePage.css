@@ -1,0 +1,88 @@
+/* 전체 컨테이너: 모바일 화면 크기에 맞춤 */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    max-width: 400px;
+    min-width: 360px;
+    margin: 0 auto;
+    background-color: white;
+    position: relative;
+}
+
+/* 오른쪽 상단 로고 */
+.home-logo {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+/* 중앙 타이틀 */
+.home-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* 버튼 스타일 */
+.home-button {
+    width: 80%;
+    max-width: 300px;
+    /* 버튼 크기 고정 */
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: background 0.3s ease;
+}
+
+.community-btn {
+    background-color: #A4D37E;
+}
+
+.community-btn:hover {
+    background-color: #8BC34A;
+}
+
+.mypage-btn {
+    background-color: #649A3A;
+}
+
+.mypage-btn:hover {
+    background-color: #4C7B2A;
+}
+
+.logout-btn {
+    background-color: #E57373;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logout-btn:hover {
+    background-color: #D32F2F;
+}
+
+/* 로그아웃 버튼 아이콘 */
+.logout-icon {
+    font-size: 20px;
+}
+
+/* 오른쪽 하단 알림 아이콘 */
+.home-alert {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}

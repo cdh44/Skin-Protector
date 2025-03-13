@@ -1,9 +1,9 @@
 import React from "react";
-import { Container, Typography, Button, Box } from "@mui/material";
+import { Container, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import LoginForm from "../components/LoginForm";
-import "../styles/LoginPage.css"; // CSS 파일 적용
+import "../styles/LoginPage.css";
 
 const LoginPage = () => {
     const navigate = useNavigate();
