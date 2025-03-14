@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Container, Typography, TextField, Button, List, ListItem, ListItemText, IconButton, AppBar, Toolbar, Box } from "@mui/material";
+import { TextField, Button, List, ListItem, ListItemText, IconButton, Box, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
 import { useParams, useNavigate } from "react-router-dom";
 import { getPostById, updatePost, deletePost } from "../services/postService";
 import { getComments, addComment, updateComment, deleteComment } from "../services/commentService";
+import "../styles/PostDetailPage.css";
 
 const PostDetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const userId = parseInt(localStorage.getItem("userId"), 10);
     const nickname = localStorage.getItem("name");
-    const [post, setPost] = useState(null);
+    const [post, setPost] = useState([null]);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [editingComment, setEditingComment] = useState(null);
@@ -32,8 +34,6 @@ const PostDetailPage = () => {
         try {
             const response = await getPostById(id);
             setPost(response.data);
-
-            // 기존 게시글 데이터를 수정 모드에서도 사용하도록 설정
             setEditedTitle(response.data.title);
             setEditedContent(response.data.content);
         } catch (error) {
@@ -49,6 +49,12 @@ const PostDetailPage = () => {
         } catch (error) {
             console.error("게시글 수정 실패:", error);
         }
+    };
+
+    const handleCancelEdit = () => {
+        setIsEditing(false);
+        setEditedTitle(post.title);
+        setEditedContent(post.content);
     };
 
     const handleDeletePost = async () => {
@@ -107,45 +113,42 @@ const PostDetailPage = () => {
     };
 
     return (
-        <Container>
+        <div className="post-detail-container">
             {/* 상단 네비게이션 바 */}
-            <AppBar position="static" sx={{ bgcolor: "white", color: "black", boxShadow: "none" }}>
-                <Toolbar>
-                    <IconButton edge="start" onClick={() => navigate("/community")} sx={{ color: "black" }}>
-                        <ArrowBackIcon />
-                    </IconButton>
-                    <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
-                        게시글 상세보기
-                    </Typography>
-                </Toolbar>
-            </AppBar>
+            <div className="navbar">
+                <IconButton edge="start" onClick={() => navigate("/community")} sx={{ color: "black" }}>
+                    <ArrowBackIcon />
+                </IconButton>
+                <h2 className="navbar-title">게시글 상세보기</h2>
+                <img src="/images/cosmetic.png" alt="Logo" className="navbar-logo" />
+            </div>
 
             {post && (
                 <>
                     {isEditing ? (
-                        <>
+                        <div className="edit-mode">
                             <TextField fullWidth margin="normal" label="제목" value={editedTitle} onChange={(e) => setEditedTitle(e.target.value)} />
                             <TextField fullWidth margin="normal" multiline rows={4} label="내용" value={editedContent} onChange={(e) => setEditedContent(e.target.value)} />
-                            <Button variant="contained" sx={{ mt: 2, bgcolor: "#8BC34A" }} onClick={handleEditPost}>
-                                <SaveIcon /> 저장
-                            </Button>
-                        </>
+                            <Box className="edit-buttons">
+                                <Button variant="contained" className="save-button" onClick={handleEditPost}>
+                                    <SaveIcon /> 저장
+                                </Button>
+                                <Button variant="outlined" color="secondary" className="cancel-button" onClick={handleCancelEdit}>
+                                    <CancelIcon /> 취소
+                                </Button>
+                            </Box>
+                        </div>
                     ) : (
-                        <>
+                        <div className="post-content">
                             <Typography variant="h4">{post.title}</Typography>
                             <Typography>{post.content}</Typography>
                             <Typography variant="subtitle1">작성자: {post.author}</Typography>
-                        </>
+                        </div>
                     )}
 
-                    {/* 게시글 작성자만 수정/삭제 버튼 표시 */}
                     {post.authorId === userId && !isEditing && (
-                        <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-                            <Button variant="outlined" color="primary" onClick={() => {
-                                setIsEditing(true);
-                                setEditedTitle(post.title); // 기존 제목 표시
-                                setEditedContent(post.content); // 기존 내용 표시
-                            }}>
+                        <Box className="edit-delete-buttons">
+                            <Button variant="outlined" color="primary" onClick={() => setIsEditing(true)}>
                                 <EditIcon /> 수정
                             </Button>
                             <Button variant="outlined" color="error" onClick={handleDeletePost}>
@@ -154,32 +157,27 @@ const PostDetailPage = () => {
                         </Box>
                     )}
 
-                    {/* 댓글 목록 */}
-                    <Typography variant="subtitle1" sx={{ mt: 2 }}>댓글</Typography>
-                    <List>
+                    <Typography variant="subtitle1" className="comment-title">댓글</Typography>
+                    <List className="comment-list">
                         {comments.map((comment) => (
-                            <ListItem key={comment.id}>
+                            <ListItem key={comment.id} className="comment-item">
                                 {editingComment === comment.id ? (
                                     <>
-                                        <TextField
-                                            fullWidth
-                                            value={editedCommentText}
-                                            onChange={(e) => setEditedCommentText(e.target.value)}
-                                        />
+                                        <TextField fullWidth value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} />
                                         <Button onClick={() => handleUpdateComment(comment.id)}>수정 완료</Button>
                                     </>
                                 ) : (
                                     <>
                                         <ListItemText primary={comment.content} secondary={comment.author} />
                                         {comment.authorId === userId && (
-                                            <>
+                                            <Box className="comment-actions">
                                                 <IconButton onClick={() => handleEditComment(comment)}>
                                                     <EditIcon />
                                                 </IconButton>
                                                 <IconButton onClick={() => handleDeleteComment(comment.id)}>
                                                     <DeleteIcon />
                                                 </IconButton>
-                                            </>
+                                            </Box>
                                         )}
                                     </>
                                 )}
@@ -187,12 +185,11 @@ const PostDetailPage = () => {
                         ))}
                     </List>
 
-                    {/* 댓글 입력 */}
-                    <TextField label="댓글 입력" fullWidth value={newComment} onChange={(e) => setNewComment(e.target.value)} />
-                    <Button onClick={handleAddComment}>댓글 작성</Button>
+                    <TextField className="comment-input" label="댓글 입력" fullWidth value={newComment} onChange={(e) => setNewComment(e.target.value)} />
+                    <Button className="comment-submit-button" onClick={handleAddComment}>댓글 작성</Button>
                 </>
             )}
-        </Container>
+        </div>
     );
 };
 

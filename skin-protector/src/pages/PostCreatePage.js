@@ -12,9 +12,6 @@ const PostCreatePage = () => {
         <div className="post-create-container">
             {/* 상단 네비게이션 바 */}
             <div className="header">
-                {/* <button className="back-button" onClick={() => navigate("/community")}>
-                    <ArrowBackIcon />
-                </button> */}
                 <Box className="back-button">
                     <IconButton onClick={() => navigate("/community")}>
                         <ArrowBackIcon />

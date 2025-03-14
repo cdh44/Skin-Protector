@@ -1,0 +1,65 @@
+.post-detail-container {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 100px; /* 버튼과 게시물이 겹치지 않도록 조정 */
+    position: relative;
+}
+
+.post-navbar {
+    background-color: white;
+    color: black;
+    box-shadow: none;
+}
+
+.back-button {
+    color: black;
+}
+
+.navbar-title {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.comment-list {
+    margin-top: 10px;
+}
+
+.comment-item {
+    background-color: #f8f8f8;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.comment-input {
+    margin-top: 10px;
+}
+
+.comment-submit-button {
+    background-color: #8BC34A;
+    color: white;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.edit-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.save-button {
+    background-color: #8BC34A;
+    color: white;
+}
+
+.cancel-button {
+    color: red;
+    border: 1px solid red;
+}
