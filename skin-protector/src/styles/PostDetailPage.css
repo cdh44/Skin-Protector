@@ -41,6 +41,24 @@
     margin-top: 10px;
 }
 
+.comment-edit-container {
+    display: flex;          /* 가로 레이아웃 */
+    align-items: center;    /* 수직 가운데 정렬 */
+    gap: 8px;               /* TextField와 버튼 사이 간격 */
+    width: 100%;            /* 부모 영역 전체 사용 */
+}
+  
+/* TextField를 남은 공간만 차지하게 하고, 버튼 공간 확보 */
+.comment-edit-container .MuiTextField-root {
+    flex: 1;                /* 남는 공간 차지 (fullWidth 대신 사용) */
+    max-width: 80%;         /* 필요 시 최대 폭 제한 */
+}
+  
+/* 버튼 텍스트가 줄바꿈되지 않도록 설정 (선택 사항) */
+.comment-edit-container .MuiButton-root {
+    white-space: nowrap;
+}
+
 .comment-submit-button {
     background-color: #8BC34A;
     color: white;

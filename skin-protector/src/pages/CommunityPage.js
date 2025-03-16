@@ -5,11 +5,13 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import PostList from "../components/PostList";
 import "../styles/CommunityPage.css";
 import { IconButton } from "@mui/material";
+/* MUI 아이콘 사용 시 */
+import AddIcon from "@mui/icons-material/Add";
 
 const CommunityPage = () => {
     const navigate = useNavigate();
     const [posts, setPosts] = useState([]);
-    const [visiblePosts, setVisiblePosts] = useState(5); // 초기 게시글 개수
+    const [visiblePosts, setVisiblePosts] = useState(5);
 
     useEffect(() => {
         fetchPosts();
@@ -24,7 +26,6 @@ const CommunityPage = () => {
         }
     };
 
-    // "더보기" 버튼 클릭 시 추가 로드
     const loadMorePosts = () => {
         setVisiblePosts((prev) => prev + 5);
     };
@@ -37,7 +38,15 @@ const CommunityPage = () => {
                     <ArrowBackIcon />
                 </IconButton>
                 <h2 className="navbar-title">커뮤니티</h2>
-                <img src="/images/cosmetic.png" alt="Logo" className="navbar-logo" />
+
+                {/* 오른쪽 영역 (플러스 버튼, 로고 등) */}
+                <div className="navbar-right">
+                    {/* + 버튼 (IconButton) */}
+                    <IconButton onClick={() => navigate("/post/create")} sx={{ color: "black" }}>
+                        <AddIcon />
+                    </IconButton>
+                    <img src="/images/cosmetic.png" alt="Logo" className="navbar-logo" />
+                </div>
             </div>
 
             {/* 게시글 목록 */}
@@ -46,16 +55,13 @@ const CommunityPage = () => {
                     <PostList posts={posts.slice(0, visiblePosts)} />
                 </div>
 
-                {/* "더보기" 버튼 (게시글이 남아있을 경우에만 표시) */}
+                {/* "더보기" 버튼 (게시글이 남아있을 경우 표시) */}
                 {visiblePosts < posts.length && (
                     <button className="load-more-button" onClick={loadMorePosts}>
                         더보기
                     </button>
                 )}
             </div>
-
-            {/* + 버튼 (위치 고정, 게시물과 겹치지 않음) */}
-            <button className="add-button" onClick={() => navigate("/post/create")}>+</button>
         </div>
     );
 };

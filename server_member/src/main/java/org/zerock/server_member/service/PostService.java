@@ -1,9 +1,11 @@
 package org.zerock.server_member.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.zerock.server_member.model.Member;
 import org.zerock.server_member.model.Post;
+import org.zerock.server_member.repository.CommentRepository;
 import org.zerock.server_member.repository.MemberRepository;
 import org.zerock.server_member.repository.PostRepository;
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Optional;
 public class PostService {
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
+    private final CommentRepository commentRepository;
 
     // 전체 게시글 목록 조회
     public List<Post> getAllPosts() {
@@ -52,15 +55,18 @@ public class PostService {
         return false;
     }
 
-    // 게시글 삭제 (작성자만 가능)
+    // 게시글 삭제 (작성자만 가능) - 댓글까지 연쇄 삭제
+    @Transactional
     public boolean deletePost(Long id, Long userId) {
         Optional<Post> existingPost = postRepository.findById(id);
-
         if (existingPost.isPresent()) {
             Post post = existingPost.get();
             if (!post.getAuthorId().equals(userId)) {
                 return false; // 삭제 권한 없음
             }
+            // 1. 관련 댓글을 먼저 삭제
+            commentRepository.deleteByPostId(id);
+            // 2. 게시글 삭제
             postRepository.deleteById(id);
             return true;
         }

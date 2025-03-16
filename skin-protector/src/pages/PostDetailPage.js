@@ -162,10 +162,16 @@ const PostDetailPage = () => {
                         {comments.map((comment) => (
                             <ListItem key={comment.id} className="comment-item">
                                 {editingComment === comment.id ? (
-                                    <>
-                                        <TextField fullWidth value={editedCommentText} onChange={(e) => setEditedCommentText(e.target.value)} />
-                                        <Button onClick={() => handleUpdateComment(comment.id)}>수정 완료</Button>
-                                    </>
+                                    <div className="comment-edit-container">
+                                        {/* TextField의 fullWidth 제거 (또는 flex: 1로 조정) */}
+                                        <TextField
+                                            value={editedCommentText}
+                                            onChange={(e) => setEditedCommentText(e.target.value)}
+                                        />
+                                        <Button onClick={() => handleUpdateComment(comment.id)}>
+                                            수정 완료
+                                        </Button>
+                                    </div>
                                 ) : (
                                     <>
                                         <ListItemText primary={comment.content} secondary={comment.author} />
