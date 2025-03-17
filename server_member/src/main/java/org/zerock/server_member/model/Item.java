@@ -3,6 +3,7 @@ package org.zerock.server_member.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDate;
 
@@ -22,4 +23,8 @@ public class Item {
 
     @Column(name = "expiration_date")
     private LocalDate expirationDate;
+
+    // 이미지 파일 경로 (예: URL 또는 로컬 저장 경로)
+    @Column(name = "image_url")
+    private String imageUrl;
 }

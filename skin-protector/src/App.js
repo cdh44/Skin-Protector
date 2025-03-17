@@ -7,6 +7,7 @@ import MyPage from "./pages/MyPage";
 import CommunityPage from "./pages/CommunityPage";
 import PostDetailPage from "./pages/PostDetailPage";
 import PostCreatePage from "./pages/PostCreatePage";
+import ItemCreateForm from "./pages/ItemCreateForm";
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/home" element={<HomePage />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/item/create" element={<ItemCreateForm />} />
         <Route path="/community" element={<CommunityPage />} />
         <Route path="/post/:id" element={<PostDetailPage />} />
         <Route path="/post/create" element={<PostCreatePage />} />
