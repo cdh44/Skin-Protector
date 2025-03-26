@@ -1,0 +1,38 @@
+/* 전체 페이지 스타일 */
+.mypage-container {
+    max-width: 400px; /* 컨테이너 최대 폭 */
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+/* 네비게이션 바 (툴바) */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+    background-color: white;
+    position: sticky;
+    top: 0;          /* 스크롤 시에도 상단에 고정 */
+    z-index: 100;    /* 게시글 위로 올라오도록 */
+}
+
+/* 중앙 타이틀 */
+.navbar-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0; /* 기본 여백 제거 */
+}
+
+/* 네비게이션 바의 오른쪽 영역 (플러스 버튼, 로고 등) */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 버튼과 로고 사이 간격 */
+}
+
+/* 로고 이미지 */
+.navbar-logo {
+    height: 40px;
+}

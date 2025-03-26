@@ -4,6 +4,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AddIcon from "@mui/icons-material/Add";
 import { getItems } from "../services/itemService";
 import { useNavigate } from "react-router-dom";
+import "../styles/MyPage.css";
 
 const MyPage = () => {
     const navigate = useNavigate();
@@ -23,35 +24,24 @@ const MyPage = () => {
     };
 
     return (
-        <Container
-            maxWidth="xs"
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                height: "100vh",
-                position: "relative",
-                pt: 10, // 상단 네비게이션 바와 간격 조정
-            }}
-        >
+        <div className="mypage-container">
             {/* 상단 네비게이션 바 */}
-            <AppBar
-                position="absolute"
-                sx={{ bgcolor: "white", color: "black", boxShadow: "none", top: 0, width: "100%" }}
-            >
-                <Toolbar>
-                    <IconButton edge="start" onClick={() => navigate("/home")} sx={{ color: "black" }}>
-                        <ArrowBackIcon />
+            <div className="navbar">
+                <IconButton edge="start" onClick={() => navigate("/home")} sx={{ color: "black" }}>
+                    <ArrowBackIcon />
+                </IconButton>
+                <h2 className="navbar-title">마이페이지</h2>
+    
+                <div className="navbar-right">
+                    <IconButton onClick={() => navigate("/item/create")} sx={{ color: "black" }}>
+                        <AddIcon />
                     </IconButton>
-                    <Typography variant="h6" sx={{ flexGrow: 1, textAlign: "center" }}>
-                        내 화장품 관리
-                    </Typography>
-                    <Box component="img" src="/images/cosmetic.png" alt="Logo" sx={{ height: 40 }} />
-                </Toolbar>
-            </AppBar>
-
+                    <img src="/images/cosmetic.png" alt="Logo" className="navbar-logo" />
+                </div>
+            </div>
+    
             {/* 화장품 목록 */}
-            <List sx={{ width: "100%", mt: 2 }}>
+            <List sx={{ width: "100%", mt: 10 }}>
                 {items.map((item) => (
                     <ListItem key={item.id} sx={{ bgcolor: "#8BC34A", mb: 2, borderRadius: 2 }}>
                         {item.imageUrl && (
@@ -65,31 +55,12 @@ const MyPage = () => {
                     </ListItem>
                 ))}
             </List>
-
+    
             {/* 새로고침 버튼 */}
             <Button variant="contained" sx={{ mt: 2, bgcolor: "#8BC34A" }} onClick={fetchItems}>
                 새로고침
             </Button>
-
-            {/* 마이페이지 화장품 추가 버튼 (+) */}
-            <IconButton
-                className="add-item-button"
-                onClick={() => navigate("/item/create")}
-                sx={{
-                    position: "absolute",
-                    bottom: 20,
-                    right: 20,
-                    bgcolor: "#8BC34A",
-                    color: "white",
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                    "&:hover": { bgcolor: "#70A43C" }
-                }}
-            >
-                <AddIcon />
-            </IconButton>
-        </Container>
+        </div>
     );
 };
 
